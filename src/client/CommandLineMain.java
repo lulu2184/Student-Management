@@ -12,46 +12,7 @@ import java.util.List;
  */
 public class CommandLineMain {
     public static void main(String[] args) {
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-
-        System.out.println("Add 1");
-        for (int i = 1; i <= 20; i++) {
-            Controller.addStudent(new Student(i, "Lulu", "/Users/LU/Desktop/SS/pic.jpg", Student.Gender.FEMALE));
-        }
-        System.out.println("Print List");
-        List<Integer> list = Controller.getStudentList();
-        if (list != null)
-            for (Integer number : list) {
-                System.out.println(number);
-            }
-        System.out.println("Add 2");
-        Controller.addStudent(new Student(2, "LuluChao", "/Users/LU/Desktop/SS/pic.jpg", Student.Gender.MALE));
-        System.out.println("Print List");
-        list = Controller.getStudentList();
-        if (list != null) {
-            for (Integer number : list) {
-                System.out.println(number);
-            }
-        }
-        System.out.println("Print 1");
-        Student student  = Controller.getStudentInformation(1);
-        System.out.println(student);
-        System.out.println("Print 2");
-        student = Controller.getStudentInformation(2);
-        System.out.println(student);
-        System.out.println("Delete 1");
-        Controller.deleteStudent(1);
-        System.out.println("Print List");
-        list = Controller.getStudentList();
-        if (list != null) {
-            for (Integer number : list) {
-                System.out.println(number);
-            }
-        }
-        System.out.println("Print 2");
-        student = Controller.getStudentInformation(2);
-        System.out.println(student);
-
+//        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
 //        while (true) {
 //            System.out.println("Student Management System");

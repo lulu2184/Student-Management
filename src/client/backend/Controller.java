@@ -1,5 +1,6 @@
 package client.backend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +33,11 @@ public class Controller {
         String content = "GET_LIST\r\nEND\r\n";
         String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
-            return Parser.stringToStudentList(result[1]);
+            if (result.length == 1) {
+                return new ArrayList<>();
+            } else {
+                return Parser.stringToStudentList(result[1]);
+            }
         } else {
             return null;
         }

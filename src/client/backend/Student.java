@@ -1,8 +1,12 @@
 package client.backend;
 
+import org.omg.PortableInterceptor.IORInfoOperations;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**
@@ -17,16 +21,16 @@ public class Student {
 
     private String number;
     private String name;
-    private String picturePath;
     private Gender gender;
+    private BufferedImage image;
 
     public Student() {
     }
 
-    public Student(String number, String name, String picPath, Gender gender) {
+    public Student(String number, String name, BufferedImage image, Gender gender) {
         this.number = number;
         this.name = name;
-        this.picturePath = picPath;
+        this.image = image;
         this.gender = gender;
     }
 
@@ -38,12 +42,12 @@ public class Student {
         this.name = name;
     }
 
-    public void setPicturePath(String path) {
-        this.picturePath = path;
-    }
-
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
     }
 
     public String getNumber() {
@@ -58,29 +62,41 @@ public class Student {
         return gender;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public BufferedImage getImage() {
+        return image;
     }
 
-    public String getPictureCode() {
+    public String getImageCode() {
         BASE64Encoder encoder = new BASE64Encoder();
         try {
-            StringBuilder pictureBuffer = new StringBuilder();
-            InputStream input = new FileInputStream(new File(picturePath));
             ByteArrayOutputStream out = new ByteArrayOutputStream();
-            byte[] temp = new byte[1024];
-            for(int len = input.read(temp); len != -1;len = input.read(temp)){
-                out.write(temp, 0, len);
-                pictureBuffer.append(encoder.encode(out.toByteArray()));
-                out.reset();
-            }
-            return pictureBuffer.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
+            ImageIO.write(image, "jpg", out);
+            return encoder.encode(out.toByteArray());
         } catch (IOException e) {
             e.printStackTrace();
             return null;
         }
     }
+
+//    public String getPictureCode() {
+//        BASE64Encoder encoder = new BASE64Encoder();
+//        try {
+//            StringBuilder pictureBuffer = new StringBuilder();
+//            InputStream input = new FileInputStream(new File(picturePath));
+//            ByteArrayOutputStream out = new ByteArrayOutputStream();
+//            byte[] temp = new byte[1024];
+//            for(int len = input.read(temp); len != -1;len = input.read(temp)){
+//                out.write(temp, 0, len);
+//                pictureBuffer.append(encoder.encode(out.toByteArray()));
+//                out.reset();
+//            }
+//            return pictureBuffer.toString();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//            return null;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 }

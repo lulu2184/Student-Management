@@ -2,13 +2,18 @@ package client.frontent;
 
 import client.backend.Controller;
 import client.backend.Student;
+import sun.misc.BASE64Encoder;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 /**
  * Created by LU on 15/12/14.
@@ -38,6 +43,7 @@ public class AddStudentFormFrame extends JFrame{
 
     public AddStudentFormFrame(MainFrame father) {
         this.father = father;
+        this.addWindowListener(new CloseAdapter());
 
         this.setSize(246, 190);
         this.setResizable(false);
@@ -130,8 +136,8 @@ public class AddStudentFormFrame extends JFrame{
             Student.Gender gender;
             if (femaleButton.isSelected()) gender = Student.Gender.FEMALE;
             else gender = Student.Gender.MALE;
-            Controller.addStudent(new Student(number, name, path, gender));
-            father.refresh();
+            Controller.addStudent(new Student(number, name, getImage(path), gender));
+            father.refreshList();
             dispose();
         }
     }
@@ -147,6 +153,21 @@ public class AddStudentFormFrame extends JFrame{
             if (file != null) {
                 path = file.getPath();
             }
+        }
+    }
+
+    private static BufferedImage getImage(String path) {
+        try {
+            return ImageIO.read(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private class CloseAdapter extends WindowAdapter {
+        public void windowClosing(WindowEvent e) {
+            father.validate();
         }
     }
 }

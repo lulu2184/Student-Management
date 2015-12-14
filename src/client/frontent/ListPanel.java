@@ -4,6 +4,8 @@ import client.backend.Controller;
 import com.sun.codemodel.internal.JOp;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +28,8 @@ public class ListPanel extends JPanel{
         if (intList != null) {
             list = new JList<>(intList.toArray(new String[0]));
         }
+        list.setSelectedIndex(0);
+        list.addListSelectionListener(new ListSelectionChangeAction());
         scrollPane = new JScrollPane(list);
         this.add(scrollPane);
         this.add(getAddButton());
@@ -37,6 +41,10 @@ public class ListPanel extends JPanel{
         if (intList != null) {
             list.setListData(intList.toArray(new String[0]));
         }
+    }
+
+    public String getSelectedStudent() {
+        return list.getSelectedValue();
     }
 
     private JButton getAddButton() {
@@ -74,7 +82,14 @@ public class ListPanel extends JPanel{
             } else {
                 Controller.deleteStudent(item);
                 refresh();
+                list.setSelectedIndex(0);
             }
+        }
+    }
+
+    private class ListSelectionChangeAction implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) {
+            father.refreshContent();
         }
     }
 }

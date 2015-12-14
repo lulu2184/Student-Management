@@ -2,10 +2,10 @@ package client.backend;
 
 import sun.misc.BASE64Decoder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +35,7 @@ public class Parser {
                     return null;
                 }
             } else if (item[0].equals("Picture")) {
-                String path = savePicture(item[1]);
-                result.setPicturePath(path);
+                result.setImage(getImage(item[1]));
             } else {
                 return null;
             }
@@ -46,7 +45,7 @@ public class Parser {
 
     public static String studentToString(Student student) {
         return "Number:" + student.getNumber() + "|Name:" + student.getName() + "|Gender:"
-                + student.getGender().toString() + "|Picture:" + student.getPictureCode();
+                + student.getGender().toString() + "|Picture:" + student.getImageCode();
     }
 
     public static List<String> stringToStudentList(String str) {
@@ -75,5 +74,20 @@ public class Parser {
             return null;
         }
         return path;
+    }
+
+    private static BufferedImage getImage(String pictureCode) {
+        BASE64Decoder decoder = new BASE64Decoder();
+        try {
+            byte[] decoderBytes = decoder.decodeBuffer(pictureCode);
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(decoderBytes));
+            return image;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

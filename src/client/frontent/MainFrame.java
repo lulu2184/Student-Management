@@ -9,13 +9,15 @@ import java.awt.*;
 public class MainFrame extends JFrame{
     private JPanel titlePanel;
     private ListPanel listPanel = new ListPanel(this);
-    private ContentPanel contentPanel = new ContentPanel();
+    private ContentPanel contentPanel = new ContentPanel(this);
     private AddStudentFormFrame addFrame;
 
     public MainFrame() {
         this.setSize(400, 400);
 
+        this.setLayout(new FlowLayout());
         this.add(listPanel);
+        this.add(contentPanel);
 //
 //        this.setLayout(new GridBagLayout());
 //        titlePanel = new JPanel();
@@ -62,10 +64,18 @@ public class MainFrame extends JFrame{
     public void setAddForm(AddStudentFormFrame frame) {
         this.addFrame = frame;
         frame.setVisible(true);
-        this.setEnabled(false);
+//        this.setEnabled(false);
     }
 
-    public void refresh() {
+    public void refreshList() {
         listPanel.refresh();
+    }
+
+    public void refreshContent() {
+        contentPanel.refresh();
+    }
+
+    public String getSelectedStudent() {
+        return listPanel.getSelectedStudent();
     }
 }
