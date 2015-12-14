@@ -23,7 +23,7 @@ public class Parser {
         for (String string : strings) {
             String[] item = string.split(":", 2);
             if (item[0].equals("Number")) {
-                result.setNumber(Integer.parseInt(item[1]));
+                result.setNumber(item[1]);
             } else if (item[0].equals("Name")) {
                 result.setName(item[1]);
             } else if (item[0].equals("Gender")) {
@@ -49,11 +49,11 @@ public class Parser {
                 + student.getGender().toString() + "|Picture:" + student.getPictureCode();
     }
 
-    public static List<Integer> stringToStudentList(String str) {
-        List<Integer> studentList = new ArrayList<Integer>();
+    public static List<String> stringToStudentList(String str) {
+        List<String> studentList = new ArrayList<String>();
         String[] stringList = str.split("\\|");
         for (String number : stringList) {
-            studentList.add(Integer.parseInt(number));
+            studentList.add(number);
         }
         return studentList;
     }

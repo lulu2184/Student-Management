@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ListPanel extends JPanel{
     private static final Dimension size = new Dimension(100, 300);
-    private JList<Integer> list;
+    private JList<String> list;
     private JScrollPane scrollPane;
     private JButton addButton;
     private JButton deleteButton;
@@ -22,9 +22,9 @@ public class ListPanel extends JPanel{
 
     public ListPanel(MainFrame father) {
         this.father = father;
-        List<Integer> intList = Controller.getStudentList();
+        List<String> intList = Controller.getStudentList();
         if (intList != null) {
-            list = new JList<>(intList.toArray(new Integer[0]));
+            list = new JList<>(intList.toArray(new String[0]));
         }
         scrollPane = new JScrollPane(list);
         this.add(scrollPane);
@@ -33,9 +33,9 @@ public class ListPanel extends JPanel{
     }
 
     public void refresh() {
-        List<Integer> intList = Controller.getStudentList();
+        List<String> intList = Controller.getStudentList();
         if (intList != null) {
-            list.setListData(intList.toArray(new Integer[0]));
+            list.setListData(intList.toArray(new String[0]));
         }
     }
 
@@ -61,13 +61,14 @@ public class ListPanel extends JPanel{
 
     private class AddAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            father.setAddFrame(new AddStudentFormFrame());
+//            father.setAddFrame(new AddStudentFormFrame());
+            father.setAddForm(new AddStudentFormFrame(father));
         }
     }
 
     private class DeleteAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Integer item = list.getSelectedValue();
+            String item = list.getSelectedValue();
             if (item == null) {
                 JOptionPane.showMessageDialog(null, "No selected student.", "error", JOptionPane.ERROR_MESSAGE);
             } else {

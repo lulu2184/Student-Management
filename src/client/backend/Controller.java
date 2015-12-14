@@ -17,8 +17,8 @@ public class Controller {
         }
     }
 
-    public static Integer deleteStudent(Integer number) {
-        String content = number.toString() + "\r\nEND\r\n";
+    public static Integer deleteStudent(String number) {
+        String content = number + "\r\nEND\r\n";
         content = "DELETE\r\n" + "Number:" + content;
         String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
@@ -28,7 +28,7 @@ public class Controller {
         }
     }
 
-    public static List<Integer> getStudentList() {
+    public static List<String> getStudentList() {
         String content = "GET_LIST\r\nEND\r\n";
         String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
@@ -38,9 +38,9 @@ public class Controller {
         }
     }
 
-    public static Student getStudentInformation(Integer number) {
+    public static Student getStudentInformation(String number) {
         String content = "GET_INFO\r\n";
-        content = content + "Number:" + number.toString() + "\r\nEND\r\n";
+        content = content + "Number:" + number + "\r\nEND\r\n";
         String[] result = ClientTalker.request(content).split("\n", 2);
         if (result.length > 0 && result[0].equals("OK")) {
             return Parser.stringToStudent(result[1]);

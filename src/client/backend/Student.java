@@ -15,7 +15,7 @@ public class Student {
     }
     public static int ITEMS = 4;
 
-    private Integer number;
+    private String number;
     private String name;
     private String picturePath;
     private Gender gender;
@@ -23,14 +23,14 @@ public class Student {
     public Student() {
     }
 
-    public Student(Integer number, String name, String picPath, Gender gender) {
+    public Student(String number, String name, String picPath, Gender gender) {
         this.number = number;
         this.name = name;
         this.picturePath = picPath;
         this.gender = gender;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -46,7 +46,7 @@ public class Student {
         this.gender = gender;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
