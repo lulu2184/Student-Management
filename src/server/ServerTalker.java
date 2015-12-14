@@ -20,12 +20,12 @@ public class ServerTalker {
                 socket = serverSocket.accept();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-                String content;
-                while (true) {
-                    content = reader.readLine();
-                    if (content.isEmpty()) break;
-                    writer.println(new RequestHandler(content).getResponse());
+                String content = new String();
+                String str;
+                while ((str = reader.readLine()) != null && !str.equals("END")) {
+                    content += str + "\n";
                 }
+                writer.println(new RequestHandler(content).getResponse());
                 reader.close();
                 writer.close();
                 if (socket != null) socket.close();

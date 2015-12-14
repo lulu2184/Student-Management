@@ -1,6 +1,5 @@
 package client.backend;
 
-import sun.jvm.hotspot.utilities.BitMap;
 import sun.misc.BASE64Decoder;
 
 import java.io.File;
@@ -46,7 +45,7 @@ public class Parser {
     }
 
     public static String studentToString(Student student) {
-        return "Number:" + student.getName() + "|Name:" + student.getName() + "|Gender:"
+        return "Number:" + student.getNumber() + "|Name:" + student.getName() + "|Gender:"
                 + student.getGender().toString() + "|Picture:" + student.getPictureCode();
     }
 

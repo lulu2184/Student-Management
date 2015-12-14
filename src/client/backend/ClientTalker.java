@@ -21,7 +21,7 @@ public class ClientTalker {
             String str;
             result = new String();
             while ((str = reader.readLine()) != null) {
-                result += str;
+                result += str + "\n";
             }
         } catch (IOException e) {
             e.printStackTrace();

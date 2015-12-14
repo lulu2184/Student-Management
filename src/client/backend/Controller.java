@@ -8,8 +8,8 @@ import java.util.List;
 public class Controller {
     public static Integer addStudent(Student student) {
         String content = Parser.studentToString(student);
-        content = "ADD\r\n" + content;
-        String[] result = ClientTalker.request(content).split("\r\n");
+        content = "ADD\r\n" + content + "\r\nEND\r\n";
+        String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
             return 0;
         } else {
@@ -17,10 +17,10 @@ public class Controller {
         }
     }
 
-    public static Integer deleteStudent(Student student) {
-        String content = Parser.studentToString(student);
+    public static Integer deleteStudent(Integer number) {
+        String content = number.toString() + "\r\nEND\r\n";
         content = "DELETE\r\n" + content;
-        String[] result = ClientTalker.request(content).split("\r\n");
+        String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
             return 0;
         } else {
@@ -29,8 +29,8 @@ public class Controller {
     }
 
     public static List<Integer> getStudentList() {
-        String content = "GET_LIST\r\n";
-        String[] result = ClientTalker.request(content).split("\r\n");
+        String content = "GET_LIST\r\nEND\r\n";
+        String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
             return Parser.stringToStudentList(result[1]);
         } else {
@@ -39,9 +39,9 @@ public class Controller {
     }
 
     public static Student getStudentInformation(Integer number) {
-        String content = "GET_INFO\r\n";
+        String content = "GET_INFO\r\nEND\r\n";
         content = content + "Student Number: " + number.toString();
-        String[] result = ClientTalker.request(content).split("\r\n");
+        String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
             return Parser.stringToStudent(result[1]);
         } else {
