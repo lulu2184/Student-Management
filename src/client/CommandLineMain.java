@@ -15,7 +15,9 @@ public class CommandLineMain {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
         System.out.println("Add 1");
-        Controller.addStudent(new Student(1, "Lulu", "/Users/LU/Desktop/SS/pic.jpg", Student.Gender.FEMALE));
+        for (int i = 1; i <= 20; i++) {
+            Controller.addStudent(new Student(i, "Lulu", "/Users/LU/Desktop/SS/pic.jpg", Student.Gender.FEMALE));
+        }
         System.out.println("Print List");
         List<Integer> list = Controller.getStudentList();
         if (list != null)
