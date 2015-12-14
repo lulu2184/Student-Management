@@ -17,7 +17,6 @@ public class RequestHandler {
     }
 
     public String getResponse() {
-        String result = null;
         String[] items = request.split("\r\n", 2);
         if (items.length == 0) {
             return(FAILED);

@@ -1,5 +1,12 @@
 package client.backend;
 
+import sun.jvm.hotspot.utilities.BitMap;
+import sun.misc.BASE64Decoder;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +61,20 @@ public class Parser {
 
     private static String savePicture(String pictureCode) {
         String path = "pic/tmp.jpg";
-
+        File file = new File(path);
+        try {
+            file.createNewFile();
+            BASE64Decoder decoder = new BASE64Decoder();
+            FileOutputStream writer = new FileOutputStream(file);
+            byte[] decoderBytes = decoder.decodeBuffer(pictureCode);
+            writer.write(decoderBytes);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return path;
     }
 }

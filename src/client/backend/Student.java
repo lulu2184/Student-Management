@@ -1,5 +1,10 @@
 package client.backend;
 
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
+
+import java.io.*;
+
 /**
  * Created by LU on 15/12/13.
  */
@@ -52,6 +57,26 @@ public class Student {
     }
 
     public String getPictureCode() {
-
+        String path = "pic/tmp.jpg";
+        BASE64Encoder encoder = new BASE64Encoder();
+        try {
+            StringBuilder pictureBuffer = new StringBuilder();
+            InputStream input = new FileInputStream(new File(path));
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            File file = new File(path);
+            byte[] temp = new byte[1024];
+            for(int len = input.read(temp); len != -1;len = input.read(temp)){
+                out.write(temp, 0, len);
+                pictureBuffer.append(encoder.encode(out.toByteArray()));
+                out.reset();
+            }
+            return pictureBuffer.toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
