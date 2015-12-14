@@ -61,7 +61,7 @@ public class RequestHandler {
 
     private String deleteStudent(String content) {
         if (content.startsWith("Number:")) {
-            String path = dirPath + content.substring("Number: ".length());
+            String path = dirPath + filePrefix + content.substring("Number:".length()).split("\n")[0];
             File file = new File(path);
             if (file.isFile() && file.exists()) {
                 file.delete();
@@ -90,7 +90,7 @@ public class RequestHandler {
 
     private String getStudentInfo(String content) {
         if (content.startsWith("Number:")) {
-            String path = dirPath + content.substring("Number: ".length());
+            String path = dirPath + filePrefix + content.substring("Number:".length()).split("\n")[0];
             try {
                 FileReader file = new FileReader(path);
                 String result = new String();
@@ -100,7 +100,7 @@ public class RequestHandler {
                     result += str + "\r\n";
                 }
                 buffer.close();
-                return result;
+                return OK + result;
             } catch (IOException e) {
                 e.printStackTrace();
                 return FAILED;

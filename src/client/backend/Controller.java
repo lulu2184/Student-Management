@@ -19,7 +19,7 @@ public class Controller {
 
     public static Integer deleteStudent(Integer number) {
         String content = number.toString() + "\r\nEND\r\n";
-        content = "DELETE\r\n" + content;
+        content = "DELETE\r\n" + "Number:" + content;
         String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
             return 0;
@@ -39,9 +39,9 @@ public class Controller {
     }
 
     public static Student getStudentInformation(Integer number) {
-        String content = "GET_INFO\r\nEND\r\n";
-        content = content + "Student Number: " + number.toString();
-        String[] result = ClientTalker.request(content).split("\n");
+        String content = "GET_INFO\r\n";
+        content = content + "Number:" + number.toString() + "\r\nEND\r\n";
+        String[] result = ClientTalker.request(content).split("\n", 2);
         if (result.length > 0 && result[0].equals("OK")) {
             return Parser.stringToStudent(result[1]);
         } else {

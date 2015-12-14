@@ -59,7 +59,7 @@ public class Parser {
     }
 
     private static String savePicture(String pictureCode) {
-        String path = "pic/tmp.jpg";
+        String path = "/Users/LU/Desktop/SS/tmp/tmp.jpg";
         File file = new File(path);
         try {
             file.createNewFile();
