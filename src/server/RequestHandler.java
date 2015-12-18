@@ -9,7 +9,7 @@ import java.io.*;
 public class RequestHandler {
     private static final String FAILED = "FAILED\r\n";
     private static final String OK = "OK\r\n";
-    private static final String dirPath = "/Users/LU/Desktop/SS/data/";
+    private static final String dirPath = "./data_server/";
     private static final String filePrefix = "SMS_";
 
     private String request;

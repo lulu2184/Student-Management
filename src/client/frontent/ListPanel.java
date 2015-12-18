@@ -31,6 +31,8 @@ public class ListPanel extends JPanel{
         list.setSelectedIndex(0);
         list.addListSelectionListener(new ListSelectionChangeAction());
         scrollPane = new JScrollPane(list);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(scrollPane);
         this.add(getAddButton());
         this.add(getDeleteButton());

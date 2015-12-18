@@ -15,9 +15,28 @@ public class MainFrame extends JFrame{
     public MainFrame() {
         this.setSize(400, 400);
 
-        this.setLayout(new FlowLayout());
-        this.add(listPanel);
-        this.add(contentPanel);
+        this.setLayout(new GridBagLayout());
+        JLabel titleLabel = new JLabel("Student Management System");
+        titleLabel.setSize(this.getWidth(), 20);
+        titleLabel.setBackground(Color.BLUE);
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 0;
+        constraints.gridheight = 1;
+        this.add(titleLabel, constraints);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+        bottomPanel.add(listPanel);
+        bottomPanel.add(contentPanel);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth = 0;
+        constraints.gridheight = 0;
+        this.add(bottomPanel, constraints);
+
 //
 //        this.setLayout(new GridBagLayout());
 //        titlePanel = new JPanel();

@@ -29,14 +29,40 @@ public class ContentPanel extends JPanel{
         genderLabel = new JLabel();
         photoIcon = new ImageIcon();
         JLabel photoLabel = new JLabel(photoIcon);
-        photoLabel.setSize(50, 50);
-        this.add(new JLabel("Number: "));
-        this.add(numberLabel);
-        this.add(new JLabel("Name: "));
-        this.add(nameLabel);
-        this.add(new JLabel("Gender: "));
-        this.add(genderLabel);
+        photoLabel.setSize(20, 20);
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+
+        JPanel numberPanel = new JPanel();
+        numberPanel.setLayout(new BoxLayout(numberPanel, BoxLayout.X_AXIS));
+        numberPanel.add(new JLabel("Number: "));
+        numberPanel.add(numberLabel);
+        infoPanel.add(numberPanel);
+        infoPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+
+        JPanel namePanel = new JPanel();
+        namePanel.setLayout(new BoxLayout(namePanel, BoxLayout.X_AXIS));
+        namePanel.add(new JLabel("Name: "));
+        namePanel.add(nameLabel);
+        infoPanel.add(namePanel);
+        infoPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+
+        JPanel genderPanel = new JPanel();
+        genderPanel.setLayout(new BoxLayout(genderPanel, BoxLayout.X_AXIS));
+        genderPanel.add(new JLabel("Gender: "));
+        genderPanel.add(genderLabel);
+        infoPanel.add(genderPanel);
+        infoPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+        infoPanel.add(Box.createRigidArea(new Dimension(20, 20)));
+
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        this.add(Box.createRigidArea(new Dimension(20, 20)));
         this.add(photoLabel);
+        this.add(Box.createRigidArea(new Dimension(20, 20)));
+        this.add(infoPanel);
+        this.add(Box.createRigidArea(new Dimension(20, 20)));
         refresh();
     }
 
@@ -47,7 +73,7 @@ public class ContentPanel extends JPanel{
             numberLabel.setText(student.getNumber());
             nameLabel.setText(student.getName());
             genderLabel.setText(student.getGender().toString());
-            photoIcon.setImage(student.getImage());
+            photoIcon.setImage(student.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
         } else {
             numberLabel.setText("");
             numberLabel.setText("");
