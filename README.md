@@ -17,5 +17,5 @@ A student management system programming with socket. Data is stored on server an
 ### client.backend
 * ClientTalker: talk with the server, pass messages
 * Controller: generate request message for each operation, pass to talker and deal with response messages.
-* Paser: parse Student to String or parse String to Student.
+* Paser: parse between Student and String, parse between String and student list.
 * Student: class for a student including its student number, name, gender and photo image.
