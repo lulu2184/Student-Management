@@ -2,7 +2,6 @@ package client.frontent;
 
 import client.backend.Controller;
 import client.backend.Student;
-import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

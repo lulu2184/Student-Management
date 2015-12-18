@@ -38,6 +38,7 @@ public class MainFrame extends JFrame{
 
     public void refreshList(boolean setLastSelected) {
         listPanel.refresh(setLastSelected);
+        contentPanel.refresh();
     }
 
     public void refreshContent() {

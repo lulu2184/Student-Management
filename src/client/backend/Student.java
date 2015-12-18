@@ -1,11 +1,8 @@
 package client.backend;
 
-import org.omg.PortableInterceptor.IORInfoOperations;
-import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -77,26 +74,4 @@ public class Student {
             return null;
         }
     }
-
-//    public String getPictureCode() {
-//        BASE64Encoder encoder = new BASE64Encoder();
-//        try {
-//            StringBuilder pictureBuffer = new StringBuilder();
-//            InputStream input = new FileInputStream(new File(picturePath));
-//            ByteArrayOutputStream out = new ByteArrayOutputStream();
-//            byte[] temp = new byte[1024];
-//            for(int len = input.read(temp); len != -1;len = input.read(temp)){
-//                out.write(temp, 0, len);
-//                pictureBuffer.append(encoder.encode(out.toByteArray()));
-//                out.reset();
-//            }
-//            return pictureBuffer.toString();
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//            return null;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
 }

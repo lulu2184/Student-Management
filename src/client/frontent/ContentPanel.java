@@ -5,7 +5,6 @@ import client.backend.Student;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 /**
  * Created by LU on 15/12/13.
@@ -18,6 +17,7 @@ public class ContentPanel extends JPanel{
     private JLabel genderLabel;
     private ImageIcon photoIcon;
     private Student student;
+    private JLabel photoLabel;
 
     public ContentPanel(MainFrame father) {
         this.father = father;
@@ -29,7 +29,7 @@ public class ContentPanel extends JPanel{
         nameLabel = new JLabel();
         genderLabel = new JLabel();
         photoIcon = new ImageIcon();
-        JLabel photoLabel = new JLabel(photoIcon);
+        photoLabel = new JLabel(photoIcon);
         photoLabel.setSize(20, 20);
 
         JPanel infoPanel = new JPanel();
@@ -75,6 +75,7 @@ public class ContentPanel extends JPanel{
             nameLabel.setText(student.getName());
             genderLabel.setText(student.getGender().toString());
             photoIcon.setImage(student.getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT));
+            photoLabel.updateUI();
         } else {
             numberLabel.setText("");
             numberLabel.setText("");
