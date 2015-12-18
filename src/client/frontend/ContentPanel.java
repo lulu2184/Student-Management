@@ -1,6 +1,8 @@
 package client.frontend;
 
 import client.backend.Controller;
+import client.backend.Parser;
+import client.backend.ServerMessage;
 import client.backend.Student;
 
 import javax.swing.*;
@@ -70,7 +72,12 @@ public class ContentPanel extends JPanel{
     public void refresh() {
         String studentNumber = father.getSelectedStudent();
         if (studentNumber != null) {
-            student = Controller.getStudentInformation(studentNumber);
+            ServerMessage msg = Controller.getStudentInformation(studentNumber);
+            if (!msg.success) {
+                JOptionPane.showMessageDialog(null, msg.message);
+                return;
+            }
+            student = Parser.stringToStudent(msg.message);
             numberLabel.setText(student.getNumber());
             nameLabel.setText(student.getName());
             genderLabel.setText(student.getGender().toString());

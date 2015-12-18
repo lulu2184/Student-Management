@@ -25,6 +25,7 @@ public class ClientTalker {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            return "FAILED\nCannot connect server.\n";
         } finally {
             try {
                 if (socket != null) socket.close();

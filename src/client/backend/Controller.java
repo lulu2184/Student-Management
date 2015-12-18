@@ -1,8 +1,5 @@
 package client.backend;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by LU on 15/12/13.
  */
@@ -49,28 +46,38 @@ public class Controller {
         }
     }
 
-    public static List<String> getStudentList() {
+    public static ServerMessage getStudentList() {
         String content = "GET_LIST\r\nEND\r\n";
         String[] result = ClientTalker.request(content).split("\n");
-        if (result.length > 0 && result[0].equals("OK")) {
+        if (result.length == 0) {
+            return new ServerMessage(false, WRONG_MSG);
+        }
+        if (result[0].equals("OK")) {
             if (result.length == 1) {
-                return new ArrayList<>();
+                return new ServerMessage(true);
             } else {
-                return Parser.stringToStudentList(result[1]);
+                return new ServerMessage(true, result[1]);
             }
+        } else if (result[0].equals("FAILED")){
+            return new ServerMessage(false, result.length > 1?result[1]:"");
         } else {
-            return null;
+            return new ServerMessage(false, WRONG_MSG);
         }
     }
 
-    public static Student getStudentInformation(String number) {
+    public static ServerMessage getStudentInformation(String number) {
         String content = "GET_INFO\r\n";
         content = content + "Number:" + number + "\r\nEND\r\n";
         String[] result = ClientTalker.request(content).split("\n", 2);
-        if (result.length > 0 && result[0].equals("OK")) {
-            return Parser.stringToStudent(result[1]);
-        } else {
-            return null;
+        if (result.length < 2) {
+            return new ServerMessage(false, WRONG_MSG);
         }
+        if (result[0].equals("OK")) {
+            return new ServerMessage(true, result[1]);
+        }
+        if (result[0].equals("FAILED")) {
+            return new ServerMessage(false, result[1]);
+        }
+        return new ServerMessage(false, WRONG_MSG);
     }
 }

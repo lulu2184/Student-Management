@@ -1,6 +1,7 @@
 package client.frontend;
 
 import client.backend.Controller;
+import client.backend.Parser;
 import client.backend.ServerMessage;
 
 import javax.swing.*;
@@ -22,12 +23,7 @@ public class ListPanel extends JPanel{
 
     public ListPanel(MainFrame father) {
         this.father = father;
-        List<String> intList = Controller.getStudentList();
-        if (intList != null) {
-            list = new JList<>(intList.toArray(new String[0]));
-        }
-        list.setSelectedIndex(0);
-        list.addListSelectionListener(new ListSelectionChangeAction());
+        list = new JList<>();
         scrollPane = new JScrollPane(list);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -36,15 +32,25 @@ public class ListPanel extends JPanel{
         this.add(getDeleteButton());
 
         this.setBorder(BorderFactory.createTitledBorder("Student List"));
+        refresh(false);
+        if (list.getModel().getSize() > 0) {
+            list.setSelectedIndex(0);
+        }
+        list.addListSelectionListener(new ListSelectionChangeAction());
     }
 
     public void refresh(boolean setLastSelected) {
-        List<String> intList = Controller.getStudentList();
-        if (intList != null) {
-            list.setListData(intList.toArray(new String[0]));
+        ServerMessage msg = Controller.getStudentList();
+        if (!msg.success) {
+            JOptionPane.showMessageDialog(null, msg.message);
+            return;
+        }
+        List<String> studentList = Parser.stringToStudentList(msg.message);
+        if (studentList != null) {
+            list.setListData(studentList.toArray(new String[0]));
         }
         if (setLastSelected) {
-            list.setSelectedIndex(intList.size() - 1);
+            list.setSelectedIndex(studentList.size() - 1);
         }
     }
 
