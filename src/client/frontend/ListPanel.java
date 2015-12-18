@@ -1,4 +1,4 @@
-package client.frontent;
+package client.frontend;
 
 import client.backend.Controller;
 import client.backend.ServerMessage;

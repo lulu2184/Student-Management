@@ -56,25 +56,6 @@ public class Parser {
         return studentList;
     }
 
-//    private static String savePicture(String pictureCode) {
-//        String path = "/Users/LU/Desktop/SS/tmp/tmp.jpg";
-//        File file = new File(path);
-//        try {
-//            file.createNewFile();
-//            BASE64Decoder decoder = new BASE64Decoder();
-//            FileOutputStream writer = new FileOutputStream(file);
-//            byte[] decoderBytes = decoder.decodeBuffer(pictureCode);
-//            writer.write(decoderBytes);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//            return null;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//        return path;
-//    }
-
     private static BufferedImage getImage(String pictureCode) {
         BASE64Decoder decoder = new BASE64Decoder();
         try {

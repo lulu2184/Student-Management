@@ -1,6 +1,6 @@
 package client;
 
-import client.frontent.MainFrame;
+import client.frontend.MainFrame;
 
 import javax.swing.*;
 

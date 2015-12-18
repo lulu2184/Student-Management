@@ -81,7 +81,7 @@ public class RequestHandler {
     private String getStudentList() {
         File dirFile = new File(dirPath);
         if (!dirFile.isDirectory() || !dirFile.exists()) {
-            return FAILED + "File not exists.\r\n";
+            return FAILED + "Directory not exists on server.\r\n";
         }
         File[] fileList = dirFile.listFiles();
         String result = new String();

@@ -1,4 +1,4 @@
-package client.frontent;
+package client.frontend;
 
 import javax.swing.*;
 import java.awt.*;
