@@ -15,7 +15,6 @@ import java.util.List;
  * Created by LU on 15/12/13.
  */
 public class ListPanel extends JPanel{
-    private static final Dimension size = new Dimension(100, 300);
     private JList<String> list;
     private JScrollPane scrollPane;
     private JButton addButton;
@@ -36,12 +35,17 @@ public class ListPanel extends JPanel{
         this.add(scrollPane);
         this.add(getAddButton());
         this.add(getDeleteButton());
+
+        this.setBorder(BorderFactory.createTitledBorder("Student List"));
     }
 
-    public void refresh() {
+    public void refresh(boolean setLastSelected) {
         List<String> intList = Controller.getStudentList();
         if (intList != null) {
             list.setListData(intList.toArray(new String[0]));
+        }
+        if (setLastSelected) {
+            list.setSelectedIndex(intList.size() - 1);
         }
     }
 
@@ -71,7 +75,6 @@ public class ListPanel extends JPanel{
 
     private class AddAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-//            father.setAddFrame(new AddStudentFormFrame());
             father.setAddForm(new AddStudentFormFrame(father));
         }
     }
@@ -79,12 +82,16 @@ public class ListPanel extends JPanel{
     private class DeleteAction implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String item = list.getSelectedValue();
+            Integer index = list.getSelectedIndex();
             if (item == null) {
                 JOptionPane.showMessageDialog(null, "No selected student.", "error", JOptionPane.ERROR_MESSAGE);
             } else {
                 Controller.deleteStudent(item);
-                refresh();
-                list.setSelectedIndex(0);
+                refresh(false);
+                if (index >= list.getModel().getSize()) {
+                    index--;
+                }
+                list.setSelectedIndex(index);
             }
         }
     }

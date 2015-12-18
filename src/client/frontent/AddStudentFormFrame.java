@@ -137,7 +137,7 @@ public class AddStudentFormFrame extends JFrame{
             if (femaleButton.isSelected()) gender = Student.Gender.FEMALE;
             else gender = Student.Gender.MALE;
             Controller.addStudent(new Student(number, name, getImage(path), gender));
-            father.refreshList();
+            father.refreshList(true);
             dispose();
         }
     }
