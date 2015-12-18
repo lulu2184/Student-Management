@@ -11,6 +11,8 @@ public class RequestHandler {
     private static final String OK = "OK\r\n";
     private static final String dirPath = "./data_server/";
     private static final String filePrefix = "SMS_";
+    private static final String wrongFormat = "Incorrect format.\r\n";
+    private static final String ioException = "IO Exception on server.\r\n";
 
     private String request;
 
@@ -21,18 +23,18 @@ public class RequestHandler {
     public String getResponse() {
         String[] items = request.split("\n", 2);
         if (items.length == 0) {
-            return(FAILED);
+            return(FAILED + wrongFormat);
         }
         if (items[0].equals("ADD")) {
-            return items.length < 2 ? FAILED : addStudent(items[1]);
+            return items.length < 2 ? (FAILED + wrongFormat) : addStudent(items[1]);
         } else if (items[0].equals("DELETE")) {
-            return items.length < 2 ? FAILED : deleteStudent(items[1]);
+            return items.length < 2 ? (FAILED + wrongFormat) : deleteStudent(items[1]);
         } else if (items[0].equals("GET_LIST")) {
             return getStudentList();
         } else if (items[0].equals("GET_INFO")) {
-            return items.length < 2 ? FAILED : getStudentInfo(items[1]);
+            return items.length < 2 ? (FAILED + wrongFormat) : getStudentInfo(items[1]);
         } else {
-            return(FAILED);
+            return(FAILED + "Not defined operation.\r\n");
         }
     }
 
@@ -48,14 +50,16 @@ public class RequestHandler {
                     FileWriter writer = new FileWriter(file);
                     writer.write(content);
                     writer.close();
+                } else {
+                    return FAILED + "Student exists.\r\n";
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                return FAILED;
+                return FAILED + ioException;
             }
             return OK;
         } else {
-            return FAILED;
+            return FAILED + wrongFormat;
         }
     }
 
@@ -66,15 +70,18 @@ public class RequestHandler {
             if (file.isFile() && file.exists()) {
                 file.delete();
                 return OK;
+            } else {
+                return FAILED + "Student not exists.\r\n";
             }
+        } else {
+            return FAILED + wrongFormat;
         }
-        return FAILED;
     }
 
     private String getStudentList() {
         File dirFile = new File(dirPath);
         if (!dirFile.isDirectory() || !dirFile.exists()) {
-            return FAILED;
+            return FAILED + "File not exists.\r\n";
         }
         File[] fileList = dirFile.listFiles();
         String result = new String();
@@ -103,9 +110,10 @@ public class RequestHandler {
                 return OK + result;
             } catch (IOException e) {
                 e.printStackTrace();
-                return FAILED;
+                return FAILED + ioException;
             }
+        } else {
+            return FAILED + wrongFormat;
         }
-        return FAILED;
     }
 }

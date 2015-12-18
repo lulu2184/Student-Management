@@ -1,6 +1,7 @@
 package client.frontent;
 
 import client.backend.Controller;
+import client.backend.ServerMessage;
 import client.backend.Student;
 
 import javax.imageio.ImageIO;
@@ -129,15 +130,20 @@ public class AddStudentFormFrame extends JFrame{
                 return;
             }
             if (!femaleButton.isSelected() && !maleButton.isSelected()) {
-                JOptionPane.showMessageDialog(null, "Not seleted gender.");
+                JOptionPane.showMessageDialog(null, "Not selected gender.");
                 return;
             }
             Student.Gender gender;
             if (femaleButton.isSelected()) gender = Student.Gender.FEMALE;
             else gender = Student.Gender.MALE;
-            Controller.addStudent(new Student(number, name, getImage(path), gender));
-            father.refreshList(true);
-            dispose();
+            ServerMessage msg = Controller.addStudent(new Student(number, name, getImage(path), gender));
+            if (msg.success) {
+                father.refreshList(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Fail: " +msg.message);
+            }
+
         }
     }
 

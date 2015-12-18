@@ -1,6 +1,7 @@
 package client.frontent;
 
 import client.backend.Controller;
+import client.backend.ServerMessage;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -84,12 +85,16 @@ public class ListPanel extends JPanel{
             if (item == null) {
                 JOptionPane.showMessageDialog(null, "No selected student.", "error", JOptionPane.ERROR_MESSAGE);
             } else {
-                Controller.deleteStudent(item);
-                refresh(false);
-                if (index >= list.getModel().getSize()) {
-                    index--;
+                ServerMessage msg = Controller.deleteStudent(item);
+                if (msg.success) {
+                    refresh(false);
+                    if (index >= list.getModel().getSize()) {
+                        index--;
+                    }
+                    list.setSelectedIndex(index);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fail: " + msg.message);
                 }
-                list.setSelectedIndex(index);
             }
         }
     }

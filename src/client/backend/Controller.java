@@ -7,25 +7,33 @@ import java.util.List;
  * Created by LU on 15/12/13.
  */
 public class Controller {
-    public static Integer addStudent(Student student) {
+    public static ServerMessage addStudent(Student student) {
         String content = Parser.studentToString(student);
         content = "ADD\r\n" + content + "\r\nEND\r\n";
         String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
-            return 0;
+            return new ServerMessage(true);
         } else {
-            return 1;
+            if (result.length > 1) {
+                return new ServerMessage(false, result[1]);
+            } else {
+                return new ServerMessage(false, "Incorrect format.");
+            }
         }
     }
 
-    public static Integer deleteStudent(String number) {
+    public static ServerMessage deleteStudent(String number) {
         String content = number + "\r\nEND\r\n";
         content = "DELETE\r\n" + "Number:" + content;
         String[] result = ClientTalker.request(content).split("\n");
         if (result.length > 0 && result[0].equals("OK")) {
-            return 0;
+            return new ServerMessage(true);
         } else {
-            return 1;
+            if (result.length > 1) {
+                return new ServerMessage(false, result[1]);
+            } else {
+                return new ServerMessage(false, "Incorrect format.");
+            }
         }
     }
 
